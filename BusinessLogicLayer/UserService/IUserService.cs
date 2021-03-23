@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLogicLayer.UserService
 {
-    interface IUserService
+    public interface IUserService
     {
 		List<UserDTO> GetAll();
     }

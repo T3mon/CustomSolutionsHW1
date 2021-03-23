@@ -1,3 +1,5 @@
+using DataAccessLayer;
+using BusinessLogicLayer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -5,6 +7,11 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using BusinessLogicLayer.UserService;
+using HomeWork1.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace HomeWork1
 {
@@ -20,6 +27,34 @@ namespace HomeWork1
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddDbContext<ApplicationDbContext>(option =>
+            {
+                option.UseSqlServer(Configuration["SqlServerConnectionString"], b => b.MigrationsAssembly("DataAcsessLayer"));
+            });
+
+            var settings = new AutentificationSettings();
+            Configuration.Bind("AutentificationSettings", settings);
+
+            services.AddAuthentication(opt =>
+            {
+                opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(opt =>
+            {
+                opt.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = settings.ValidateIssuer,
+                    ValidateAudience = settings.ValidateAudience,
+                    ValidateLifetime = settings.ValidateLifetime,
+                    ValidIssuer = settings.ValidIssuer,
+                    ValidAudience = settings.ValidAudience,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@123"))
+                };
+            });
+            services.AddScoped<IApplicationDbContext, ApplicationDbContext>();
+            services.AddScoped<IUserService, UserService>();
+
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
