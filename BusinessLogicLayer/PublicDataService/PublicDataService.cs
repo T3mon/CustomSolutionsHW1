@@ -18,16 +18,16 @@ namespace BusinessLogicLayer.PublicDataService
 
 		public List<PublicDatasDTO> GetAll()
 		{
-			var users = _dbContext.PublicDatas.ToList();
-			var userResult = new List<PublicDatasDTO>();
+			var data = _dbContext.PublicDatas.ToList();
+			var dataResult = new List<PublicDatasDTO>();
 
-			foreach (var user in users)
+			foreach (var user in data)
 			{
-				var mappedUser = new PublicDatasDTO{ Text = user.Text};
-				userResult.Add(mappedUser);
+				var mappedData = new PublicDatasDTO{ Text = user.Text};
+				dataResult.Add(mappedData);
 			}
 
-			return userResult;
+			return dataResult;
 		}
 
     }

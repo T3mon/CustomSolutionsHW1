@@ -13,7 +13,9 @@ using System.Threading.Tasks;
 
 namespace HomeWork1.Controllers
 {
-    public class UserController : Controller
+    [Route("[controller]")]
+    [ApiController]
+    public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
         public UserController(IUserService userService)

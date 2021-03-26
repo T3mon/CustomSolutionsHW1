@@ -1,1 +1,6 @@
-<p>public-data works!</p>
+<div *ngIf="publicDataset">
+  <h1>public dataset retrieved: </h1>
+  <p *ngFor="let PublicData of publicDataset">
+    <span>text: <strong>{{PublicData.text}}</strong></span>
+  </p>
+</div>
