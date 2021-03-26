@@ -2,9 +2,19 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using DataAccessLayer.Entities;
+using BusinessLogicLayer;
+using BusinessLogicLayer.PublicDataService;
+using DataAccessLayer;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace HomeWork1
 {
@@ -20,6 +30,33 @@ namespace HomeWork1
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddDbContext<ApplicationDbContext>(option =>
+            {
+                option.UseSqlServer(Configuration["SqlServerConnectionString"], b => b.MigrationsAssembly("DataAccessLayer"));
+            });
+
+            services.AddAuthentication(opt =>
+            {
+                opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(opt =>
+            {
+                opt.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidIssuer = "https://localhost:30678",
+                    ValidAudience = "https://localhost:30678",
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"))
+                };
+            });
+
+            services.AddScoped<IApplicationDbContext, ApplicationDbContext>();
+            services.AddScoped<IPublicDataService, PublicDataService>();
+
+
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -70,6 +107,29 @@ namespace HomeWork1
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
+        }
+
+        private void SeedDefaultUsers(IApplicationBuilder app)
+        {
+            var scopeFactory = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>();
+
+            using (var scope = scopeFactory.CreateScope())
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+
+                if (dbContext.PublicDatas.FirstOrDefault(u => u.Text == "PublicDaa") == null)
+                {
+                    dbContext.AddRange(new List<PublicData>()
+                    {
+                        new PublicData(){ Text= "Public data 1"},
+                        new PublicData(){ Text= "Public data 2"},
+                        new PublicData(){ Text= "Public data 3"}
+                    });
+
+                    dbContext.SaveChanges();
+                }
+
+            }
         }
     }
 }

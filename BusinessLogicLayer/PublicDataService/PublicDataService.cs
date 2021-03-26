@@ -6,26 +6,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessLogicLayer.UserService
+namespace BusinessLogicLayer.PublicDataService
 {
-    class UserService : IUserService
+    public class PublicDataService : IPublicDataService
     {
 		private readonly IApplicationDbContext _dbContext;
-		public UserService(IApplicationDbContext dbContext)
+		public PublicDataService(IApplicationDbContext dbContext)
 		{
 			_dbContext = dbContext;
 		}
 
-		public List<UserDTO> GetAll()
+		public List<PublicDatasDTO> GetAll()
 		{
-			var users = _dbContext.Users.ToList();
-			var userResult = new List<UserDTO>();
+			var users = _dbContext.PublicDatas.ToList();
+			var userResult = new List<PublicDatasDTO>();
 
 			foreach (var user in users)
 			{
-				var mappedUser = new UserDTO { Login = user.Login, Password = user.Password };
+				var mappedUser = new PublicDatasDTO{ Text = user.Text};
 				userResult.Add(mappedUser);
-
 			}
 
 			return userResult;

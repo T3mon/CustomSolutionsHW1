@@ -14,7 +14,7 @@ namespace DataAccessLayer
         {
 
         }
-        public DbSet<User> Users { get; set; }
+        public DbSet<PublicData> PublicDatas { get; set; }
 
     }
 }

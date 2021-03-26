@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace BusinessLogicLayer.Models
 {
-    public class UserDTO
+    public class PublicDatasDTO
     {
-        public string Login { get; set; }
-        public string Password { get; set; }
+        public string Text { get; set; }
     }
 }

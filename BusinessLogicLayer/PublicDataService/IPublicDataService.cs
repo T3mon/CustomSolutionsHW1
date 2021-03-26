@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessLogicLayer.UserService
+namespace BusinessLogicLayer.PublicDataService
 {
-    interface IUserService
+    public interface IPublicDataService
     {
-		List<UserDTO> GetAll();
+		List<PublicDatasDTO> GetAll();
     }
 }
