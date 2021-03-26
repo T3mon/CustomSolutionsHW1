@@ -119,17 +119,41 @@ namespace HomeWork1
             {
                 var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
-                if (dbContext.PublicDatas.FirstOrDefault(u => u.Text == "PublicDaa") == null)
+                if (dbContext.PublicDatas.FirstOrDefault(u => u.Text == "PublicData") == null)
                 {
                     dbContext.AddRange(new List<PublicData>()
                     {
-                        new PublicData(){ Text= "Public data 1"},
+                        new PublicData(){ Text= "PublicData"},
                         new PublicData(){ Text= "Public data 2"},
                         new PublicData(){ Text= "Public data 3"}
                     });
 
                     dbContext.SaveChanges();
                 }
+                if (dbContext.PrivateDatas.FirstOrDefault(u => u.Text == "PrivateData") == null)
+                {
+                    dbContext.AddRange(new List<PublicData>()
+                    {
+                        new PublicData(){ Text= "PrivateData"},
+                        new PublicData(){ Text= "Private data 2"},
+                        new PublicData(){ Text= "Private data 3"}
+                    });
+
+                    dbContext.SaveChanges();
+                }
+
+                if (dbContext.Users.FirstOrDefault(u => u.Login == "Jhon") == null)
+                {
+                    dbContext.AddRange(new List<User>()
+                    {
+                        new User(){ Login= "Jhon", Password="Doe"},
+                        new User(){ Login= "Bjarne", Password="Stroustrup"},
+                        new User(){ Login= "Linus", Password="Torvalds"}
+                    });
+
+                    dbContext.SaveChanges();
+                }
+
 
             }
         }

@@ -1,4 +1,6 @@
-﻿using HomeWork1.Models;
+﻿using BusinessLogicLayer.Models;
+using BusinessLogicLayer.PublicDataService;
+using HomeWork1.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -13,15 +15,22 @@ namespace HomeWork1.Controllers
 {
     public class UserController : Controller
     {
+        private readonly IUserService _userService;
+        public UserController(IUserService userService)
+        {
+            _userService = userService;
+        }
         [HttpPost]
         [Route("login")]
         public IActionResult Login(LoginModel user)
         {
+
             if (user == null)
             {
                 return BadRequest("Invalid data");
             }
-            if (user.UserName == "johndoe" && user.Password == "12345")
+
+            if (_userService.UserExist(new UserDTO() { Login = user.UserName, Password = user.Password }))
             {
                 var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"));
                 var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
