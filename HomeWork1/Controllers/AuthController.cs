@@ -14,18 +14,18 @@ using System.Threading.Tasks;
 namespace HomeWork1.Controllers
 {
     [Route("[controller]")]
-    public class AuthController : Controller
+    [ApiController]
+    public class AuthController : ControllerBase
     {
         private readonly IUserService _userService;
         public AuthController(IUserService userService)
         {
             _userService = userService;
         }
-        [HttpPost]
+        [HttpGet]
         [Route("login")]
         public IActionResult Login(LoginModel user)
         {
-
             if (user == null)
             {
                 return BadRequest("Invalid data");

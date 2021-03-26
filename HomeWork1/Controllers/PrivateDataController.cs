@@ -20,11 +20,18 @@ namespace HomeWork1.Controllers
         {
             _PrivateDataServicee = PrivateDataService;
         }
+        [HttpGet]
+        [Authorize]
+        public IEnumerable<string> Get()
+        {
+            return new string[] { "First secred data string", "Second secred data string" };
+        }
+
 
         [HttpGet]
         [Authorize]
-        [Route("get-users")]
-        public List<PrivateDataDTO> GetAllUsers()
+        [Route("get-privatedata")]
+        public List<PrivateDataDTO> GetPrivateData()
         {
             return _PrivateDataServicee.GetAll();
         }
