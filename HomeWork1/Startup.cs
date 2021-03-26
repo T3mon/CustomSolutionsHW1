@@ -88,6 +88,8 @@ namespace HomeWork1
 
             app.UseRouting();
 
+            SeedDefaultUsers(app);
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
