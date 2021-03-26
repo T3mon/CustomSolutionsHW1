@@ -14,11 +14,10 @@ using System.Threading.Tasks;
 namespace HomeWork1.Controllers
 {
     [Route("[controller]")]
-    [ApiController]
-    public class UserController : ControllerBase
+    public class AuthController : Controller
     {
         private readonly IUserService _userService;
-        public UserController(IUserService userService)
+        public AuthController(IUserService userService)
         {
             _userService = userService;
         }
@@ -32,7 +31,7 @@ namespace HomeWork1.Controllers
                 return BadRequest("Invalid data");
             }
 
-            if (_userService.UserExist(new UserDTO() { Login = user.UserName, Password = user.Password }))
+            if (_userService.UserExist(new UserDTO() { Login = user.Login, Password = user.Password }))
             {
                 var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"));
                 var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
