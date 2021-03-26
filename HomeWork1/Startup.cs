@@ -87,6 +87,8 @@ namespace HomeWork1
             }
 
             app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             SeedDefaultUsers(app);
 

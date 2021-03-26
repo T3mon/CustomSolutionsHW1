@@ -47,7 +47,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\private-data\PrivateData.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\public-data\PublicData.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\public-data\User.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\login\User.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
