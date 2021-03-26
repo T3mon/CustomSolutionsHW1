@@ -18,7 +18,7 @@ export class PublicDataComponent implements OnInit {
         this.publicDataset = result;
       },
       error => {
-        console.log("privatedata says: " + error);
+        console.log("publicData error: " + error);
       }
     );
 

@@ -34,6 +34,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\private-data\PrivateData.ts" />
     <None Remove="ClientApp\src\app\public-data\PublicData.ts" />
     <None Remove="ClientApp\src\app\public-data\User.ts" />
   </ItemGroup>
@@ -44,6 +45,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\private-data\PrivateData.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\public-data\PublicData.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\public-data\User.ts" />
   </ItemGroup>
