@@ -11,7 +11,6 @@ namespace HomeWork1.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    [Authorize]
     public class PrivateDataController : ControllerBase
     {
         private readonly IPrivateDataService _PrivateDataServicee;
@@ -20,16 +19,9 @@ namespace HomeWork1.Controllers
         {
             _PrivateDataServicee = PrivateDataService;
         }
-        [HttpGet]
-        [Authorize]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "First secred data string", "Second secred data string" };
-        }
 
 
         [HttpGet]
-        [Authorize]
         [Route("get-privatedata")]
         public List<PrivateDataDTO> GetPrivateData()
         {

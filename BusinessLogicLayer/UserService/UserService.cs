@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLogicLayer.PublicDataService
 {
-    class UserService : IUserService
+    public class UserService : IUserService
     {
         private readonly IApplicationDbContext _dbContext;
         public UserService(IApplicationDbContext dbContext)

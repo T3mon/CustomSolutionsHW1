@@ -15,6 +15,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Linq;
 using System.Collections.Generic;
+using BusinessLogicLayer.PrivateDataService;
 
 namespace HomeWork1
 {
@@ -54,7 +55,9 @@ namespace HomeWork1
             });
 
             services.AddScoped<IApplicationDbContext, ApplicationDbContext>();
+            services.AddScoped<IUserService, UserService>();
             services.AddScoped<IPublicDataService, PublicDataService>();
+            services.AddScoped<IPrivateDataService, PrivateDataService>();
 
 
             services.AddControllersWithViews();
@@ -123,7 +126,7 @@ namespace HomeWork1
 
                 if (dbContext.PublicDatas.FirstOrDefault(u => u.Text == "PublicData") == null)
                 {
-                    dbContext.AddRange(new List<PublicData>()
+                    dbContext.PublicDatas.AddRange(new List<PublicData>()
                     {
                         new PublicData(){ Text= "PublicData"},
                         new PublicData(){ Text= "Public data 2"},
@@ -134,11 +137,11 @@ namespace HomeWork1
                 }
                 if (dbContext.PrivateDatas.FirstOrDefault(u => u.Text == "PrivateData") == null)
                 {
-                    dbContext.AddRange(new List<PublicData>()
+                    dbContext.PrivateDatas.AddRange(new List<PrivateData>()
                     {
-                        new PublicData(){ Text= "PrivateData"},
-                        new PublicData(){ Text= "Private data 2"},
-                        new PublicData(){ Text= "Private data 3"}
+                        new PrivateData(){ Text= "PrivateData"},
+                        new PrivateData(){ Text= "Private data 2"},
+                        new PrivateData(){ Text= "Private data 3"}
                     });
 
                     dbContext.SaveChanges();
@@ -146,7 +149,7 @@ namespace HomeWork1
 
                 if (dbContext.Users.FirstOrDefault(u => u.Login == "Jhon") == null)
                 {
-                    dbContext.AddRange(new List<User>()
+                    dbContext.Users.AddRange(new List<User>()
                     {
                         new User(){ Login= "Jhon", Password="Doe"},
                         new User(){ Login= "Bjarne", Password="Stroustrup"},

@@ -22,7 +22,7 @@ namespace HomeWork1.Controllers
         {
             _userService = userService;
         }
-        [HttpGet]
+        [HttpPost]
         [Route("login")]
         public IActionResult Login(LoginModel user)
         {
