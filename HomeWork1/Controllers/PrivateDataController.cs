@@ -22,6 +22,7 @@ namespace HomeWork1.Controllers
 
 
         [HttpGet]
+        [Authorize]
         [Route("get-privatedata")]
         public List<PrivateDataDTO> GetPrivateData()
         {

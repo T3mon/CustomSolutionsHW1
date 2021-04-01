@@ -1,4 +1,5 @@
-﻿using BusinessLogicLayer.Models;
+﻿using BusinessLogicLayer.LogginService;
+using BusinessLogicLayer.Models;
 using BusinessLogicLayer.PublicDataService;
 using HomeWork1.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -24,6 +25,7 @@ namespace HomeWork1.Controllers
         }
         [HttpPost]
         [Route("login")]
+
         public IActionResult Login(LoginModel user)
         {
             if (user == null)
@@ -37,8 +39,8 @@ namespace HomeWork1.Controllers
                 var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
 
                 var tokenOptions = new JwtSecurityToken(
-                    issuer: "https://localhost:30678",
-                    audience: "https://localhost:30678",
+                    issuer: "https://localhost:44345",
+                    audience: "https://localhost:44345",
                     claims: new List<Claim>(),
                     expires: DateTime.Now.AddYears(1),
                     signingCredentials: signinCredentials

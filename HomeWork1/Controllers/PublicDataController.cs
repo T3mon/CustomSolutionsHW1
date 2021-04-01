@@ -1,4 +1,5 @@
-﻿using BusinessLogicLayer.Models;
+﻿using BusinessLogicLayer.LogginService;
+using BusinessLogicLayer.Models;
 using BusinessLogicLayer.PublicDataService;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 namespace HomeWork1.Controllers
 {
     [Route("[controller]")]
+    [ServiceFilter(typeof(LogginFilterAttribute))]
     [ApiController]
     public class PublicDataController : ControllerBase
     {

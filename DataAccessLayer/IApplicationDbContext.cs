@@ -13,5 +13,7 @@ namespace DataAccessLayer
 		public DbSet<PublicData> PublicDatas { get; set; }
 		public DbSet<PrivateData> PrivateDatas{ get; set; }
 		public DbSet<User> Users { get; set; }
+        public DbSet<ApiRequestsLogs> ApiRequestsLogs { get ; set ; }
+
     }
 }

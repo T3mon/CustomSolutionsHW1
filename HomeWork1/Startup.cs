@@ -16,6 +16,7 @@ using System.Text;
 using System.Linq;
 using System.Collections.Generic;
 using BusinessLogicLayer.PrivateDataService;
+using BusinessLogicLayer.LogginService;
 
 namespace HomeWork1
 {
@@ -48,8 +49,8 @@ namespace HomeWork1
                     ValidateIssuer = true,
                     ValidateAudience = true,
                     ValidateLifetime = true,
-                    ValidIssuer = "https://localhost:30678",
-                    ValidAudience = "https://localhost:30678",
+                    ValidIssuer = "https://localhost:44345",
+                    ValidAudience = "https://localhost:44345",
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"))
                 };
             });
@@ -58,6 +59,7 @@ namespace HomeWork1
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IPublicDataService, PublicDataService>();
             services.AddScoped<IPrivateDataService, PrivateDataService>();
+            services.AddScoped<LogginFilterAttribute>();
 
 
             services.AddControllersWithViews();
