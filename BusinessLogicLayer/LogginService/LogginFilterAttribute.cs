@@ -24,7 +24,7 @@ namespace BusinessLogicLayer.LogginService
             {
                 EndpointName = request.Path.ToString(),
                 ResourceName = request.Method.ToString(),
-                RequestTime = DateTime.UtcNow.ToLongDateString()
+                RequestTime = DateTime.Now.ToLongDateString()
             });
             _dbContext.SaveChanges();
             base.OnActionExecuting(context);
